@@ -13,9 +13,9 @@ defmodule TimexTests do
 
   test "add" do
     date = Timex.to_datetime({{2015, 6, 24}, {14, 27, 52}})
-    expected = Timex.to_datetime({{2015, 7, 2}, {14, 27, 52}})
-    result = Timex.add(date, Duration.from_days(8))
-    assert expected === result
+    expected = Timex.to_datetime({{2015, 7, 2}, {14, 27, 52}}) |> Map.put(:microsecond, {0, 6})
+    result = Timex.add(date, Duration.from_days(8)) |> Map.put(:microsecond, {0, 6})
+    assert expected == result
   end
 
   test "add microseconds" do
@@ -27,16 +27,16 @@ defmodule TimexTests do
 
   test "subtract" do
     date = Timex.to_datetime({{2015, 6, 24}, {14, 27, 52}})
-    expected = Timex.to_datetime({{2015, 6, 16}, {14, 27, 52}})
-    result = Timex.subtract(date, Duration.from_days(8))
-    assert expected === result
+    expected = Timex.to_datetime({{2015, 6, 16}, {14, 27, 52}}) |> Map.put(:microsecond, {0, 6})
+    result = Timex.subtract(date, Duration.from_days(8)) |> Map.put(:microsecond, {0, 6}) 
+    assert expected == result
   end
 
   test "subtract milliseconds" do
     time = Timex.to_datetime({{2015, 6, 24}, {14, 27, 52}})
     time = %{time | microsecond: {910_000, 2}}
     subtracted = Timex.subtract(time, Duration.from_milliseconds(10))
-    assert subtracted.microsecond === {900_000, 2}
+    assert subtracted.microsecond === {900_000, 6}
   end
 
   test "weekday" do

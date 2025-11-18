@@ -12,9 +12,15 @@ defmodule Timex.Mixfile do
       package: package(),
       deps: deps(),
       docs: docs(),
+      cli: cli(),
       compilers: Mix.compilers(),
       test_coverage: [tool: ExCoveralls],
       elixirc_paths: elixirc_paths(Mix.env()),
+    ]
+  end
+
+  def cli do
+    [
       preferred_cli_env: [
         "hex.publish": :docs,
         docs: :docs,
@@ -24,8 +30,11 @@ defmodule Timex.Mixfile do
         "coveralls.json": :test,
         "coveralls.post": :test
       ]
+
     ]
   end
+
+
 
   def application do
     [
@@ -57,7 +66,7 @@ defmodule Timex.Mixfile do
     [
       {:tzdata, "~> 1.1"},
       {:combine, "~> 0.10"},
-      {:gettext, "~> 1.02"},
+      {:gettext, "~> 1.0.2"},
       {:ex_doc, "~> 0.13", only: [:docs]},
       {:benchfella, "~> 0.3", only: [:bench]},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
